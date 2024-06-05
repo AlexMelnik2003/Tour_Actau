@@ -32,18 +32,20 @@ def contact(request):
     return render(request, 'main/contact.html')
 
 
-
-
 def faq_view(request):
     if request.method == 'POST':
         form = FaqForm(request.POST)
         if form.is_valid():
             faq = form.save(commit=False)
             faq.save()
-            return redirect('tour_list')
+            return redirect('faq_success')
     else:
         form = FaqForm()
     return render(request, 'main/faq.html', {'form': form})
+
+
+def faq_success(request):
+    return render(request, 'main/faq_success.html')
 
 
 def book_tour(request, pk):
