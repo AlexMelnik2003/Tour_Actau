@@ -43,8 +43,8 @@ class Book_list(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
     book_data = models.DateField()
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
+    email = models.CharField(max_length=30)
     number_phone = models.IntegerField()
 
     def __str__(self):

@@ -6,16 +6,16 @@ from .models import Book_list
 
 
 class BookingForm(forms.ModelForm):
-    first_name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}))
-    last_name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'}))
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия и имя'}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Электронная почта'}))
     number_phone = forms.IntegerField(
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Номер телефона'}))
 
     class Meta:
         model = Book_list
-        fields = ['first_name', 'last_name', 'number_phone']
+        fields = ['name', 'email', 'number_phone']
 
 
 class FaqForm(forms.ModelForm):
