@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ tour.destination.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .tour-image {
+            width: 100%;
+            height: 400px; /* Установите желаемую высоту */
+            object-fit: cover; /* Обеспечивает, чтобы изображение заполнило элемент, сохраняя его пропорции */
+        }
+        .tour-video {
+            width: 100%;
+            height: auto;
+        }
+        #scrollTopBtn {
+            display: none; /* По умолчанию скрываем кнопку */
+            position: fixed; /* Фиксированное положение на странице */
+            bottom: 20px;
+            right: 20px;
+            z-index: 99; /* Устанавливаем высокий z-index, чтобы кнопка оставалась поверх других элементов */
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-icons {
+            margin-top: 10px;
+        }
+
+        .footer-icons a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87CEFA;">
+    <div class="container-fluid">
+        <img src="{% static 'logo/logo.png' %}" style="width: 7%">
+        <a class="navbar-brand mx-auto" href="{% url 'main' %}"><strong>Tour Actau</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold"
+                       href="{% url 'tour_list' %}">Путешествия</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold"
+                       href="{% url 'contact' %}">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary btn-lg btn-md btn-sm fw-bold" href="{% url 'faq' %}">FAQ</a>
+                </li>
+
+                <li class="nav-item">
+                    <span class="nav-link">+7 (123) 456-78-90</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ tour.destination.name }}</h1>
+            <p class="card-text">{{ tour.destination.description }}</p>
+            <p class="card-text">Цена от <strong>{{ tour.price }}</strong> тенге</p>
+            <div class="text-center mb-4">
+                <form method="post" action="{% url 'book_tour' pk=tour.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Забронировать</button>
+                </form>
+            </div>
+            <div class="row">
+                {% for image in tour.images.all %}
+                <div class="col-md-4 mb-4">
+                    <img src="{{ image.image.url }}" class="img-fluid tour-image" alt="Tour image">
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                {% for video in tour.videos.all %}
+                <div class="col-md-6 mb-4">
+                    <video class="tour-video" controls>
+                        <source src="{{ video.video_file.url }}" type="video/mp4">
+                        Ваш браузер не поддерживает тег видео.
+                    </video>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center">
+                <form method="post" action="{% url 'book_tour' pk=tour.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Забронировать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer mt-auto py-3">
+    <div class="container text-center">
+        <span>© 2024 TOUR AKTAU. Все права защищены.</span>
+        <div class="footer-icons">
+            <a href="https://www.instagram.com/your_instagram_profile/" target="_blank" rel="noopener noreferrer">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"
+                     width="30">
+            </a>
+            <span>Телефон: +7 (123) 456-78-90</span>
+        </div>
+    </div>
+</footer>
+
+<button id="scrollTopBtn" class="btn btn-primary btn-lg rounded-circle p-3"
+        style="background-color: #343a40; color: white; position: fixed; bottom: 20px; right: 20px; display: none;">
+    Наверх
+</button>
+
+
+<script>
+    // Когда документ загружен
+    document.addEventListener("DOMContentLoaded", function() {
+        // Кнопка для прокрутки страницы вверх
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        // При скролле страницы
+        window.onscroll = function() {
+            // Если скролл больше 20 пикселей, показываем кнопку, иначе скрываем
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        // При клике на кнопку прокрутки вверх
+        scrollTopBtn.addEventListener('click', function() {
+            // Прокручиваем страницу вверх с плавной анимацией
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
