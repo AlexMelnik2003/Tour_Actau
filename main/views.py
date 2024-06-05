@@ -32,8 +32,6 @@ def contact(request):
     return render(request, 'main/contact.html')
 
 
-def about_us(request):
-    return render(request, 'main/about_us.html')
 
 
 def faq_view(request):
