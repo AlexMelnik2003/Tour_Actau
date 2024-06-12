@@ -8,6 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
+        .navbar {
+    background-color: white;
+    transition: background-color 0.5s ease;
+}
+
+.navbar.scrolled {
+    background-color: white !important;
+}
         .tour-image {
             width: 100%;
             height: 400px; /* Установите желаемую высоту */
@@ -54,7 +62,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: white;">
     <div class="container-fluid">
         <img src="{% static 'logo/logo.png' %}" style="width: 7%">
         <a class="navbar-brand mx-auto" href="{% url 'main' %}"><strong>Tour Aktau</strong></a>
@@ -88,9 +96,10 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">{{ tour.destination.name }}</h1>
+            <h1 class="card-title"><br><br>{{ tour.destination.name }}</h1>
             <p class="card-text">{{ tour.destination.description }}</p>
             <p class="card-text">Цена от <strong>{{ tour.price }}</strong> тенге</p>
+            <p class="card-text">Тип: однодневный/многодневный</p>
             <div class="text-center mb-4">
                 <form method="post" action="{% url 'book_tour' pk=tour.pk %}">
                     {% csrf_token %}
@@ -127,17 +136,22 @@
 </div>
 
 <footer class="footer mt-auto py-3">
-    <div class="container text-center">
-        <span>© 2024 TOUR AKTAU. Все права защищены.</span>
-        <div class="footer-icons">
-            <a href="https://www.instagram.com/tour.aktau.kazakhstan/" target="_blank" rel="noopener noreferrer">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"
-                     width="30">
-            </a>
-            <span>Телефон: +7 705 344 6624</span>
+        <div class="container text-center">
+            <span>© 2024 TOUR AKTAU. Все права защищены.</span>
+            <div class="footer-links mt-3">
+                <a href="{% url 'tour_list' %}" class="btn btn-outline-light btn-sm">Выбрать тур</a>
+                <a href="{% url 'contact' %}" class="btn btn-outline-light btn-sm">Контакты</a>
+                <a href="{% url 'faq' %}" class="btn btn-outline-light btn-sm">FAQ</a>
+            </div>
+            <div class="footer-icons mt-3">
+                <a href="https://www.instagram.com/tour.aktau.kazakhstan/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"
+                         width="30">
+                </a>
+                <span>Телефон: +7 705 344 6624</span>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
 <button id="scrollTopBtn" class="btn btn-primary btn-lg rounded-circle p-3"
         style="background-color: #343a40; color: white; position: fixed; bottom: 20px; right: 20px; display: none;">

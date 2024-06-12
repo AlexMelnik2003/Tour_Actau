@@ -9,6 +9,14 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
+        .navbar {
+    background-color: white;
+    transition: background-color 0.5s ease;
+}
+
+.navbar.scrolled {
+    background-color: white !important;
+}
         .card {
             margin-top: 30px;
             height: 100%;
@@ -28,7 +36,6 @@
             position: relative;
             bottom: 0;
             width: 100%;
-            margin-top: 30px; /* Add margin top */
         }
 
         .footer a {
@@ -52,10 +59,10 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87CEFA;">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container-fluid">
         <img src="{% static 'logo/logo.png' %}" style="width: 7%">
-        <a class="navbar-brand mx-auto" href="{% url 'main' %}"><strong>Tour Actau</strong></a>
+        <a class="navbar-brand mx-auto" href="{% url 'main' %}"><strong>Tour Aktau</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -83,7 +90,7 @@
 </nav>
 
 <div class="container text-center mt-5">
-    <h1>Наши контакты</h1>
+    <h1><br><br>Наши контакты</h1>
 
     <div class="row gx-3">
         <div class="col-md">
@@ -114,7 +121,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Телеграмм</h5>
                     <p class="card-text">Можете написать на телеграмм!</p>
-                    <a href="https://t.me/" class="btn btn-primary">Перейти</a>
+                    <a href="https://t.me/+77053446624" class="btn btn-primary">Перейти</a>
                 </div>
             </div>
         </div>
@@ -124,7 +131,12 @@
 <footer class="footer mt-auto py-3">
     <div class="container text-center">
         <span>© 2024 TOUR AKTAU. Все права защищены.</span>
-        <div class="footer-icons">
+        <div class="footer-links mt-3">
+            <a href="{% url 'tour_list' %}" class="btn btn-outline-light btn-sm">Выбрать тур</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-light btn-sm">Контакты</a>
+            <a href="{% url 'faq' %}" class="btn btn-outline-light btn-sm">FAQ</a>
+        </div>
+        <div class="footer-icons mt-3">
             <a href="https://www.instagram.com/tour.aktau.kazakhstan/" target="_blank" rel="noopener noreferrer">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"
                      width="30">
