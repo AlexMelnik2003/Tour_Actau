@@ -81,8 +81,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for category in categories %}
-                        <li><a class="dropdown-item" href="{% url 'tours_by_category' category.id %}">{{ category.name
-                            }}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'tours_by_category' category.id %}">{{ category.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -95,7 +94,7 @@
 </nav>
 
 <div class="container-fluid mt-5">
-    <h1 class="mb-4"><br><br>Доступные туры{% if selected_category %} в категории "{{ selected_category.name }}"{% endif %}</h1>
+    <h1 class="mb-4"><br><br><br>Доступные туры{% if selected_category %} в категории "{{ selected_category.name }}"{% endif %}</h1>
     <div class="row">
         {% for tour in tours %}
         <div class="col-md-4 mb-4">
