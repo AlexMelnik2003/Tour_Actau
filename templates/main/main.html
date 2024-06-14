@@ -24,6 +24,9 @@
         .navbar.scrolled {
             background-color: white !important;
         }
+        .navbar.toggled {
+            background-color: white !important;
+        }
 
         .video-banner {
             position: relative;
@@ -447,6 +450,20 @@
         } else {
             navbar.classList.remove('scrolled');
         }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbar = document.querySelector('.navbar');
+
+        navbarToggler.addEventListener('click', function () {
+            if (navbar.classList.contains('toggled')) {
+                navbar.classList.remove('toggled');
+            } else {
+                navbar.classList.add('toggled');
+            }
+        });
     });
 </script>
 </body>

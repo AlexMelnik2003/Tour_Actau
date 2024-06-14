@@ -20,7 +20,6 @@ class Destination(models.Model):
 
 class Tour(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='tour_detail_imаge/')
     book_data = models.DateField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

@@ -103,7 +103,6 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ tour.destination.name }}</h5>
                     <p class="card-text">{{ tour.destination.description }}</p>
-                    <p class="card-text">Цена от {{ tour.price }} тенге</p>
                     <a href="{% url 'tour_detail' pk=tour.pk %}" class="btn btn-primary btn-lg fw-bold">Подробнее</a>
                 </div>
             </div>
