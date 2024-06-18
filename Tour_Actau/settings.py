@@ -32,6 +32,10 @@ CSRF_TRUSTED_ORIGINS = [
     'https://tour-aktau-kazakhstan.kz',
     'https://www.tour-aktau-kazakhstan.kz',
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 INSTALLED_APPS = [
     'main',
     'django.contrib.admin',
