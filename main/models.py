@@ -39,7 +39,7 @@ class TourVideo(models.Model):
 
 
 class Book_list(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
     book_data = models.DateField()
     name = models.CharField(max_length=30)
