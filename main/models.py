@@ -25,7 +25,7 @@ class Tour(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.destination.name} - {self.price}'
+        return f'{self.destination.name}'
 
 
 class TourImage(models.Model):
@@ -47,7 +47,8 @@ class Book_list(models.Model):
     number_phone = models.IntegerField()
 
     def __str__(self):
-        return f'{self.tour} - {self.user.username}'
+        user_str = self.user.username if self.user else "Anonymous"
+        return f'{self.tour} - {user_str}'
 
 
 class Booking(models.Model):
