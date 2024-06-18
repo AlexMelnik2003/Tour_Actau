@@ -48,13 +48,38 @@ def faq_success(request):
     return render(request, 'main/faq_success.html')
 
 
+# def book_tour(request, pk):
+#     tour = get_object_or_404(Tour, pk=pk)
+#     if request.method == 'POST':
+#         form = BookingForm(request.POST)
+#         if form.is_valid():
+#             booking = form.save(commit=False)
+#             booking.user = request.user
+#             booking.tour = tour
+#             booking.is_paid = False
+#
+#             # Обрабатываем поле даты
+#             book_data = request.POST.get('book_data')
+#             if book_data:
+#                 booking.book_data = parse_date(book_data)
+#
+#             booking.save()
+#             return redirect('booking_success')
+#     else:
+#         form = BookingForm()
+#     return render(request, 'booking/book_tour.html', {'form': form, 'tour': tour})
+
+
 def book_tour(request, pk):
     tour = get_object_or_404(Tour, pk=pk)
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
-            booking.user = request.user
+            if request.user.is_authenticated:
+                booking.user = request.user
+            else:
+                booking.user = None  # Для анонимного пользователя
             booking.tour = tour
             booking.is_paid = False
 
